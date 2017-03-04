@@ -6,7 +6,7 @@
   "scripts": {
   },
   "bin": {
-    "another-work-report-generator": "bin/another-work-report-generator.js"
+    "another-work-report-generator": "bin/another-work-report-generator"
   },
   "repository": {
     "type": "git",
