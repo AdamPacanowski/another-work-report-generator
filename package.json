@@ -1,0 +1,23 @@
+{
+  "name": "another-work-report-generator",
+  "version": "3.0.0",
+  "description": "Another (probably best) work report generator.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdamPacanowski/another-work-report-generator.git"
+  },
+  "keywords": [
+    "report",
+    "work",
+    "generator"
+  ],
+  "contributors": [
+    "Adam Pacanowski",
+    "Jakub Szczepaniak"
+  ],
+  "license": "ISC"
+}
