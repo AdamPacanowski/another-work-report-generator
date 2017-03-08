@@ -1,55 +1,91 @@
-const prog = require('caporal');
-const version = require('./package.json').version;
+const argv = require('yargs');
 const defaults = require('./defaults');
 
-const settings = defaults;
+const parseNumber = function(value, fieldName) {
+  const number = parseFloat(value);
+  
+  if (Number.isNaN(number)) {
+    throw new Error(`Parse error - ${ fieldName } isn't a number.`);
+  }
 
-prog
-    .version(version)
-    .option('--path <path>', `repositories root path (default = ${ defaults.path })`)
-    .action((args, options, logger) => {
-      settings.path = options.path;
-      logger.debug(`Path = ${ settings.path }`);
-    })
-    .option('--month <month>', `report month (default = ${ defaults.month })`, /^(0?[1-9]|1[012])$/)
-    .action((args, options, logger) => {
-      settings.month = options.month;
-      logger.debug(`Month = ${ settings.month }`);
-    })
-    .option('--year <year>', `report year (default = ${ defaults.year })`, prog.INT)
-    .action((args, options, logger) => {
-      settings.year = options.year;
-      logger.debug(`Year = ${ settings.year }`);
-    })
-    .option('--author <author>', `report author name (default = ${ defaults.author })`)
-    .action((args, options, logger) => {
-      settings.author = options.author;
-      logger.debug(`Author = ${ settings.author }`);
-    })
-    .option('--max-hours-per-day <hours>', `number of max hours per day (default = ${ defaults.maxHoursPerDay })`)
-    .action((args, options, logger) => {
-      settings.maxHoursPerDay = options.hours;
-      logger.debug(`Max hours per day = ${ settings.maxHoursPerDay }`);
-    })
-    .option('--min-commit-time <hours>', `number of min commit time in hours (default = ${ defaults.minCommitTime })` )
-    .action((args, options, logger) => {
-      settings.minCommitTime = options.hours;
-      logger.debug(`Min commit time = ${ settings.minCommitTime }`);
-    })
-    .option('--graduation <hours>', `smallest time unit in hours (default = ${ defaults.graduation })`)
-    .action((args, options, logger) => {
-      if (!options.graduation) { return; } // due to library bug
-      settings.graduation = options.graduation;
-      logger.debug(`Graduation = ${ settings.graduation }`);
-    });
+  return number;
+};
 
-prog.parse(process.argv);
+argv
+  .version(function() {
+    return require('./package.json').version;
+  })
+  .option('path', {
+    alias: 'p',
+    describe: 'Repositories root path',
+    default: defaults.path
+  })
+  .option('month', {
+    alias: 'm',
+    describe: 'Report month',
+    default: defaults.month,
+    coerce: opt => {
+      const number = parseNumber(opt, 'Month');
+
+      if (number < 1 || number > 12) {
+        throw new Error(`Parse error - It isn't month number.`);
+      }
+
+      return number;
+    }
+  })
+  .option('year', {
+    alias: 'y',
+    describe: 'Report year',
+    default: defaults.year,
+    coerce: opt => {
+      return parseNumber(opt, 'Year');
+    }
+  })
+  .option('author', {
+    alias: 'a',
+    describe: 'Report author name',
+    default: defaults.author
+  })
+  .option('max-hours-per-day', {
+    describe: 'Number of max hours per day',
+    default: defaults.maxHoursPerDay,
+    coerce: opt => {
+      return parseNumber(opt, 'Max hours per day');
+    }
+  })
+  .option('min-commit-time', {
+    describe: 'Number of min commit time in hours',
+    default: defaults.minCommitTime,
+    coerce: opt => {
+      return parseNumber(opt, 'Min commit time in hours');
+    }
+  })
+  .option('graduation', {
+    describe: 'Smallest time unit in hours',
+    default: defaults.graduation,
+    coerce: opt => {
+      return parseNumber(opt, 'Graduation');
+    }
+  })
+  .wrap(argv.terminalWidth())
+  .help()
+  .argv;
+
+const settings = {};
+settings.path = argv.argv.path;
+settings.month = argv.argv.month;
+settings.year = argv.argv.year;
+settings.author = argv.argv.author;
+settings.maxHoursPerDay = argv.argv.maxHoursPerDay;
+settings.minCommitTime = argv.argv.minCommitTime;
+settings.graduation = argv.argv.graduation;
 
 settings.month = parseInt(settings.month, 10);
 settings.year = parseInt(settings.year, 10);
 settings.startTime = new Date(settings.year, settings.month - 1, 1);
 settings.endTime = new Date(settings.year + (settings.month === 12 ? 1 : 0), settings.month % 12, 1);
 
-prog.logger().debug('Settings:', settings);
+console.log('settings', settings);
 
 module.exports = settings;

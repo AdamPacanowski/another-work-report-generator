@@ -3,8 +3,7 @@
   "version": "3.0.0",
   "description": "Another (probably best) work report generator.",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "bin": {
     "another-work-report-generator": "bin/another-work-report-generator"
   },
@@ -23,7 +22,7 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "caporal": "0.3.0"
+    "yargs": "7.0.1"
   },
   "engines": {
     "node": ">=6.9.0"
