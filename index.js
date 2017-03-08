@@ -6,8 +6,8 @@ const path = require('path');
 const { execSync } = require('child_process');
 
 //console.log(settings)
-const reposWithCommits = fs
-  .readdirSync(settings.path)
+//const reposWithCommits = fs
+//  .readdirSync(settings.path)
   /*.filter((folderName) => fs.lstatSync(path.join(settings.path, folderName)).isDirectory())
   .map((folderName) => path.join(settings.path, folderName, '.git'))
   .filter((gitFolderName) => {

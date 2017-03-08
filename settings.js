@@ -1,6 +1,7 @@
-const argv = require('yargs');
+const yargs = require('yargs');
 const defaults = require('./defaults');
 
+// Parse utils
 const parseNumber = function(value, fieldName) {
   const number = parseFloat(value);
   
@@ -11,7 +12,8 @@ const parseNumber = function(value, fieldName) {
   return number;
 };
 
-argv
+// Yargs config
+const argv = yargs
   .version(function() {
     return require('./package.json').version;
   })
@@ -45,7 +47,13 @@ argv
   .option('author', {
     alias: 'a',
     describe: 'Report author name',
-    default: defaults.author
+    default: defaults.author,
+    coerce: opt => {
+      if (!defaults.author) {
+        throw new Error('Parse error - Author is missing.')
+      }
+      return opt;
+    }
   })
   .option('max-hours-per-day', {
     describe: 'Number of max hours per day',
@@ -68,19 +76,29 @@ argv
       return parseNumber(opt, 'Graduation');
     }
   })
-  .wrap(argv.terminalWidth())
+  .wrap(yargs.terminalWidth())
+  .detectLocale(false)
   .help()
+  .demandOption((() => {
+    if (!defaults.author) {
+      return ['author'];
+    }
+
+    return [];
+  })())
   .argv;
 
+// Creating settings object
 const settings = {};
-settings.path = argv.argv.path;
-settings.month = argv.argv.month;
-settings.year = argv.argv.year;
-settings.author = argv.argv.author;
-settings.maxHoursPerDay = argv.argv.maxHoursPerDay;
-settings.minCommitTime = argv.argv.minCommitTime;
-settings.graduation = argv.argv.graduation;
+settings.path = argv.path;
+settings.month = argv.month;
+settings.year = argv.year;
+settings.author = argv.author;
+settings.maxHoursPerDay = argv.maxHoursPerDay;
+settings.minCommitTime = argv.minCommitTime;
+settings.graduation = argv.graduation;
 
+// Computing settings
 settings.month = parseInt(settings.month, 10);
 settings.year = parseInt(settings.year, 10);
 settings.startTime = new Date(settings.year, settings.month - 1, 1);
