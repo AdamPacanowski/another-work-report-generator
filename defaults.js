@@ -22,7 +22,18 @@ const defaults = {
 
     return now.getFullYear();
   })(),
-  author: execSync('git config user.name').toString().trim(),
+  author: (() => {
+    try {
+      return execSync('git config user.name').toString().trim();
+    } catch (e) {
+      try {
+        return execSync('git config user.email').toString().trim().split('@')[0];
+      }
+      catch (e) {
+        return undefined;
+      }
+    }
+  })(),
   maxHoursPerDay: 7,
   minCommitTime: 0.25,
   graduation: 0.25
