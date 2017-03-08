@@ -38,10 +38,18 @@ prog
     })
     .option('--graduation <hours>', `smallest time unit in hours (default = ${ defaults.graduation })`)
     .action((args, options, logger) => {
+      if (!options.graduation) { return; } // due to library bug
       settings.graduation = options.graduation;
-      logger.debug(`Graduation = ${ settings.graduation }`)
+      logger.debug(`Graduation = ${ settings.graduation }`);
     });
 
 prog.parse(process.argv);
+
+settings.month = parseInt(settings.month, 10);
+settings.year = parseInt(settings.year, 10);
+settings.startTime = new Date(settings.year, settings.month - 1, 1);
+settings.endTime = new Date(settings.year + (settings.month === 12 ? 1 : 0), settings.month % 12, 1);
+
+prog.logger().debug('Settings:', settings);
 
 module.exports = settings;
