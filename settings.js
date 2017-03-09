@@ -104,6 +104,5 @@ settings.year = parseInt(settings.year, 10);
 settings.startTime = new Date(settings.year, settings.month - 1, 1);
 settings.endTime = new Date(settings.year + (settings.month === 12 ? 1 : 0), settings.month % 12, 1);
 
-console.log('settings', settings);
 
 module.exports = settings;
