@@ -6,6 +6,6 @@ const excelCreator = require('./excelCreator');
 
 const rawCommits = commitsGetter(settings);
 const calculatedCommits = commitsParser.standardCalculation(rawCommits, settings);
-excelCreator(calculatedCommits);
+excelCreator(calculatedCommits, settings);
 
-console.log(calculatedCommits);
+//console.log(calculatedCommits);
