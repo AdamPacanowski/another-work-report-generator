@@ -2,7 +2,7 @@
   "name": "another-work-report-generator",
   "version": "3.0.0",
   "description": "Another (probably best) work report generator.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {},
   "bin": {
     "another-work-report-generator": "bin/another-work-report-generator"
