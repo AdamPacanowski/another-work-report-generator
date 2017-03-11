@@ -37,7 +37,8 @@ const defaults = {
   maxHoursPerDay: 7,
   minCommitTime: 0.25,
   graduation: 0.25,
-  silent: false
+  silent: false,
+  disableAutoOpenFile: false
 };
 
 module.exports = defaults;

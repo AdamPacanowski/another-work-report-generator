@@ -82,6 +82,11 @@ const argv = yargs
     default: defaults.silent,
     type: 'boolean'
   })
+  .option('disable-auto-open-file', {
+    describe: 'Disable auto opening new report file',
+    default: defaults.disableAutoOpenFile,
+    type: 'boolean'
+  })
   .wrap(yargs.terminalWidth())
   .detectLocale(false)
   .help()
@@ -104,6 +109,7 @@ settings.maxHoursPerDay = argv.maxHoursPerDay;
 settings.minCommitTime = argv.minCommitTime;
 settings.graduation = argv.graduation;
 settings.silent = argv.silent;
+settings.disableAutoOpenFile = argv.disableAutoOpenFile;
 
 // Computing settings
 settings.month = parseInt(settings.month, 10);

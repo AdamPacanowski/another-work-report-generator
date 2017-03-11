@@ -42,6 +42,8 @@ module.exports = function(calculatedCommits, settings) {
 
   workbook.xlsx.writeFile(settings.reportName)
     .then(() => {
-       opn(settings.reportName);
+      if (!settings.disableAutoOpenFile) {
+        opn(settings.reportName);
+      }
     });
 };
