@@ -8,6 +8,7 @@ function isPreviousMonthReport() {
 
 const defaults = {
   path: process.cwd(),
+  outputPath: process.cwd(),
   month: (() => {
     if (isPreviousMonthReport()) {
       return now.getMonth() === 0 ? 12 : now.getMonth();

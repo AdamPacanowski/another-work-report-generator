@@ -1,3 +1,4 @@
+const path = require('path');
 const Excel = require('exceljs');
 const opn = require('opn');
 
@@ -10,7 +11,7 @@ module.exports = function(calculatedCommits, settings) {
     { header: 'Hash', key: 'hash', width: 8 },
     { header: 'Date', key: 'date', width: 12, style: { numFmt: 'dd/mm/yyyy' } },
     { header: 'Time spend (h)', key: 'timeSpend', width: 14 },
-    { header: 'Project', key: 'project' },
+    { header: 'Project', key: 'project', width: 20 },
     { header: 'Description', key: 'description' }
   ];
 
@@ -40,10 +41,11 @@ module.exports = function(calculatedCommits, settings) {
   };
   sheet.getCell('L1').value = {formula: "SUM(D:D)"};
 
-  workbook.xlsx.writeFile(settings.reportName)
+  const fullPathToReportFile = path.join(settings.outputPath, settings.reportName);
+  workbook.xlsx.writeFile(fullPathToReportFile)
     .then(() => {
       if (!settings.disableAutoOpenFile) {
-        opn(settings.reportName, {
+        opn(fullPathToReportFile, {
           wait: false
         });
       }

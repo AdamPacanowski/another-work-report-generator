@@ -23,6 +23,11 @@ const argv = yargs
     describe: 'Repositories root path',
     default: defaults.path
   })
+  .option('output-path', {
+    alias: 'o',
+    describe: 'Generated report path',
+    default: defaults.outputPath
+  })
   .option('month', {
     alias: 'm',
     describe: 'Report month',
@@ -102,6 +107,7 @@ const argv = yargs
 // Creating settings object
 const settings = {};
 settings.path = argv.path;
+settings.outputPath = argv.outputPath;
 settings.month = argv.month;
 settings.year = argv.year;
 settings.author = argv.author;
@@ -124,7 +130,7 @@ if (settings.silent) {
 }
 
 // Display settings
-console.log('Settings'.help);
+console.log('--- Settings ---'.help);
 for (let key in settings) {
   console.log(`${ key }: ${ settings[key] }`.help);
 }
