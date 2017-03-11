@@ -38,6 +38,12 @@ const commitsParser = {
       filteredCommit.time = parseInt((ratio * settings.maxHoursPerDay) / settings.graduation, 10) * settings.graduation || settings.minCommitTime;
     });
 
+    if (commits.length) {
+      console.log(`Found ${ commits.length } commit(s).`.info);
+    } else {
+      console.log('No commits found.'.error);
+      process.exit(0);
+    }
     return commits;
   }
 };

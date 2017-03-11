@@ -1,4 +1,4 @@
- const yargs = require('yargs');
+const yargs = require('yargs');
 const leftPad = require('left-pad');
 const defaults = require('./defaults');
 
@@ -77,6 +77,11 @@ const argv = yargs
       return parseNumber(opt, 'Graduation');
     }
   })
+  .option('silent', {
+    describe: 'Disable output in console',
+    default: defaults.silent,
+    type: 'boolean'
+  })
   .wrap(yargs.terminalWidth())
   .detectLocale(false)
   .help()
@@ -98,6 +103,7 @@ settings.author = argv.author;
 settings.maxHoursPerDay = argv.maxHoursPerDay;
 settings.minCommitTime = argv.minCommitTime;
 settings.graduation = argv.graduation;
+settings.silent = argv.silent;
 
 // Computing settings
 settings.month = parseInt(settings.month, 10);
@@ -106,5 +112,15 @@ settings.startTime = new Date(settings.year, settings.month - 1, 1);
 settings.endTime = new Date(settings.year + (settings.month === 12 ? 1 : 0), settings.month % 12, 1);
 settings.reportName = `report-${ settings.year }-${ leftPad(settings.month, 2, '0') }.xlsx`;
 
+// Disable output
+if (settings.silent) {
+  console.log = () => {};
+}
+
+// Display settings
+console.log('Settings'.help);
+for (let key in settings) {
+  console.log(`${ key }: ${ settings[key] }`.help);
+}
 
 module.exports = settings;

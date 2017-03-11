@@ -24,7 +24,6 @@ module.exports = function(calculatedCommits, settings) {
   }
 
   calculatedCommits.forEach((commit) => {
-    console.log(commit.time)
     sheet.addRow({
       fullhash: commit.fullhash,
       hash: commit.hash,
