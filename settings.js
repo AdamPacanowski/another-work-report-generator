@@ -1,4 +1,5 @@
-const yargs = require('yargs');
+ const yargs = require('yargs');
+const leftPad = require('left-pad');
 const defaults = require('./defaults');
 
 // Parse utils
@@ -103,6 +104,7 @@ settings.month = parseInt(settings.month, 10);
 settings.year = parseInt(settings.year, 10);
 settings.startTime = new Date(settings.year, settings.month - 1, 1);
 settings.endTime = new Date(settings.year + (settings.month === 12 ? 1 : 0), settings.month % 12, 1);
+settings.reportName = `report-${ settings.year }-${ leftPad(settings.month, 2, '0') }.xlsx`;
 
 
 module.exports = settings;

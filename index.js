@@ -8,4 +8,5 @@ const rawCommits = commitsGetter(settings);
 const calculatedCommits = commitsParser.standardCalculation(rawCommits, settings);
 excelCreator(calculatedCommits, settings);
 
+
 //console.log(calculatedCommits);

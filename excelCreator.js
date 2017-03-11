@@ -1,4 +1,5 @@
 const Excel = require('exceljs');
+const opn = require('opn');
 
 module.exports = function(calculatedCommits, settings) {
   const workbook = new Excel.Workbook();
@@ -13,6 +14,15 @@ module.exports = function(calculatedCommits, settings) {
     { header: 'Description', key: 'description' }
   ];
 
+  const startColumn = 'A';
+  const startColumnAsciiCode = startColumn.charCodeAt(0);
+  for (let i = 0; i < sheet.columns.length; i++) {
+    const columnLetter = String.fromCharCode(startColumnAsciiCode + i);
+    sheet.getCell(`${ columnLetter }1`).font = {
+      bold: true
+    };
+  }
+
   calculatedCommits.forEach((commit) => {
     console.log(commit.time)
     sheet.addRow({
@@ -26,10 +36,13 @@ module.exports = function(calculatedCommits, settings) {
   });
 
   sheet.getCell('K1').value = "Sum:";
+  sheet.getCell('K1').font = {
+    bold: true
+  };
   sheet.getCell('L1').value = {formula: "SUM(D:D)"};
 
-  workbook.xlsx.writeFile(`report-${ settings.year }-${ settings.month }.xlsx`)
-    .then(function() {
-        // done
+  workbook.xlsx.writeFile(settings.reportName)
+    .then(() => {
+       opn(settings.reportName);
     });
 };
