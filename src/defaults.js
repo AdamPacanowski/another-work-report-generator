@@ -1,27 +1,30 @@
 const { execSync } = require('child_process');
 
-var now = new Date();
+const now = new Date();
+const fullYear = now.getFullYear();
+const month = now.getMonth();
+const date = now.getDate();
 
 function isPreviousMonthReport() {
-  return now.getDate() < 5;
+  return date < 5;
 }
 
-const defaults = {
+module.exports = {
   path: process.cwd(),
   outputPath: process.cwd(),
   month: (() => {
     if (isPreviousMonthReport()) {
-      return now.getMonth() === 0 ? 12 : now.getMonth();
+      return month === 0 ? 12 : month;
     }
 
-    return now.getMonth() + 1;
+    return month + 1;
   })(),
   year: (() => {
-    if (isPreviousMonthReport() && now.getMonth() === 0) {
-      return now.getFullYear() - 1;
+    if (isPreviousMonthReport() && month === 0) {
+      return fullYear - 1;
     }
 
-    return now.getFullYear();
+    return fullYear;
   })(),
   author: (() => {
     try {
@@ -41,5 +44,3 @@ const defaults = {
   silent: false,
   disableAutoOpenFile: false
 };
-
-module.exports = defaults;
