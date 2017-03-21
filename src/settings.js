@@ -1,4 +1,5 @@
 const yargs = require('yargs');
+const chalk = require('chalk');
 const leftPad = require('left-pad');
 const defaults = require('./defaults');
 
@@ -130,9 +131,9 @@ if (settings.silent) {
 }
 
 // Display settings
-console.log('--- Settings ---'.help);
+console.log(chalk.blue('--- Settings ---'));
 for (let key in settings) {
-  console.log(`${ key }: ${ settings[key] }`.help);
+  console.log(chalk.blue(`${ key }: ${ settings[key] }`));
 }
 
 module.exports = settings;

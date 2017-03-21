@@ -1,4 +1,5 @@
 const path = require('path');
+const chalk = require('chalk');
 
 const commitsParser = {
   _parse: (rawCommits, settings) => {
@@ -39,9 +40,9 @@ const commitsParser = {
     });
 
     if (commits.length) {
-      console.log(`Found ${ commits.length } commit(s).`.info);
+      console.log(chalk.green(`Found ${ commits.length } commit(s).`));
     } else {
-      console.log('No commits found.'.error);
+      console.log(chalk.red('No commits found.'));
       process.exit(0);
     }
     return commits;
