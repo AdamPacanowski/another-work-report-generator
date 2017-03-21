@@ -3,7 +3,9 @@
   "version": "3.0.0",
   "description": "Another (probably best) work report generator.",
   "main": "src/index.js",
-  "scripts": {},
+  "scripts": {
+    "lint": "node node_modules/eslint/bin/eslint src"
+  },
   "bin": {
     "another-work-report-generator": "bin/another-work-report-generator"
   },
@@ -30,5 +32,8 @@
   },
   "engines": {
     "node": ">=6.9.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.18.0"
   }
 }

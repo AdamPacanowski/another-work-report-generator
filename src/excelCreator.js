@@ -35,11 +35,11 @@ module.exports = function(calculatedCommits, settings) {
     });
   });
 
-  sheet.getCell('K1').value = "Sum:";
+  sheet.getCell('K1').value = 'Sum:';
   sheet.getCell('K1').font = {
     bold: true
   };
-  sheet.getCell('L1').value = {formula: "SUM(D:D)"};
+  sheet.getCell('L1').value = {formula: 'SUM(D:D)'};
 
   const fullPathToReportFile = path.join(settings.outputPath, settings.reportName);
   workbook.xlsx.writeFile(fullPathToReportFile)

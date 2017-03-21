@@ -36,7 +36,7 @@ const argv = yargs
       const number = parseNumber(opt, 'Month');
 
       if (number < 1 || number > 12) {
-        throw new Error(`Parse error - It isn't month number.`);
+        throw new Error('Parse error - It isn\'t month number.');
       }
 
       return number;
@@ -56,7 +56,7 @@ const argv = yargs
     default: defaults.author,
     coerce: opt => {
       if (!defaults.author) {
-        throw new Error('Parse error - Author is missing.')
+        throw new Error('Parse error - Author is missing.');
       }
       return opt;
     }

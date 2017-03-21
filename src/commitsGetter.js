@@ -11,7 +11,7 @@ module.exports = function(settings) {
       try {
         fs.accessSync(gitFolderName, fs.F_OK);
       } catch (err) {
-        return false
+        return false;
       }
 
       return true;
