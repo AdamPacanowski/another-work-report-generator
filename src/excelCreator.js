@@ -24,6 +24,7 @@ module.exports = function(calculatedCommits, settings) {
     };
   }
 
+  let formulaSum = 0;
   calculatedCommits.forEach((commit) => {
     sheet.addRow({
       fullhash: commit.fullhash,
@@ -33,13 +34,14 @@ module.exports = function(calculatedCommits, settings) {
       project: commit.project,
       description: commit.text
     });
+    formulaSum += commit.time;
   });
 
   sheet.getCell('K1').value = 'Sum:';
   sheet.getCell('K1').font = {
     bold: true
   };
-  sheet.getCell('L1').value = {formula: 'SUM(D:D)'};
+  sheet.getCell('L1').value = {formula: 'SUM(D:D)', result: formulaSum};
 
   const fullPathToReportFile = path.join(settings.outputPath, settings.reportName);
   workbook.xlsx.writeFile(fullPathToReportFile)
