@@ -58,6 +58,13 @@ List of options:
 * Auto open file feature.
 * Changed library to generating xlsx file.
 
+### 3.0.1
+
+* Eslint added
+* Changed colors library to chalk
+* Some files refactored (commitsGetter, defaults)
+* Fix problem with modifying the file without modifying it.
+
 
 ## TODO List
 
