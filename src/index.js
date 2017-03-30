@@ -1,11 +1,3 @@
-var colors = require('colors');
-
-colors.setTheme({
-  info: 'green',
-  help: 'blue',
-  error: 'red'
-});
-
 require('./prerequirements');
 const settings = require('./settings');
 const commitsGetter = require('./commitsGetter');

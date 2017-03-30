@@ -63,7 +63,11 @@ List of options:
 * Eslint added
 * Changed colors library to chalk
 * Some files refactored (commitsGetter, defaults)
-* Fix problem with modifying the file without modifying it.
+* Fixed problem with modifying the file without modifying it.
+
+### 3.0.2
+
+* Quick fix - Removed ```colors``` library from code.
 
 
 ## TODO List
