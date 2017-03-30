@@ -17,7 +17,7 @@ const parseNumber = function(value, fieldName) {
 // Yargs config
 const argv = yargs
   .version(function() {
-    return require('./package.json').version;
+    return require('../package.json').version;
   })
   .option('path', {
     alias: 'p',

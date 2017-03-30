@@ -69,6 +69,10 @@ List of options:
 
 * Quick fix - Removed ```colors``` library from code.
 
+### 3.0.3
+
+* Quick fix - Displaying package version.
+
 
 ## TODO List
 
