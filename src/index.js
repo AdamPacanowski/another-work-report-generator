@@ -5,6 +5,21 @@ if (settings.showOnlySchedule) {
   require('./windows/timelogger.js');
 
   //process.exit(0);
+  const spawn = require('cross-spawn');
+  const ls = spawn('node_modules/.bin/electron', ['src/electron_app']);
+
+  ls.stdout.on( 'data', data => {
+    console.log( `stdout: ${data}` );
+  });
+
+  ls.stderr.on( 'data', data => {
+    console.log( `stderr: ${data}` );
+  });
+
+  ls.on( 'close', code => {
+    console.log( `child process exited with code ${code}` );
+  });
+
   console.log('Press any key to exit');
 
   process.stdin.setRawMode(true);
