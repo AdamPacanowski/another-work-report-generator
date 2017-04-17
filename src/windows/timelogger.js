@@ -1,4 +1,4 @@
-const edge = require('edge');
+/*const edge = require('edge');
 
 const assemblyFile = 'bin/TimeLibrary.dll';
 
@@ -9,4 +9,4 @@ const test = edge.func({
 
 test({
   test: (status) => { console.log('Windows session status: ' + status); }
-});
+});*/
