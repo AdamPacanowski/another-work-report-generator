@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, Tray, Menu} = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -6,11 +6,12 @@ const url = require('url')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win
+let win;
+let appIcon = null;
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({width: 800, height: 600})
+  win = new BrowserWindow({width: 800, height: 600});
 
   // and load the index.html of the app.
   win.loadURL(url.format({
@@ -18,6 +19,39 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   }));
+
+  win.on('minimize',function(event){
+    event.preventDefault();
+    win.hide();
+  });
+
+  win.on('close', function (event) {
+    if(!app.isQuiting){
+      event.preventDefault();
+      win.hide();
+    }
+    
+    return false;
+  });
+
+  appIcon = new Tray(path.join(__dirname, 'assets', 'report.ico'));
+  const contextMenu =  Menu.buildFromTemplate([
+    {
+      label: 'Show App', 
+      click: function() {
+        win.show();
+      }
+    }, { 
+      label: 'Quit', 
+      click: function() {
+        app.isQuiting = true;
+        app.quit();
+      }
+    }
+  ]);
+
+  // Call this again for Linux because we modified the context menu
+  appIcon.setContextMenu(contextMenu);
 
   // Open the DevTools.
   //win.webContents.openDevTools()
