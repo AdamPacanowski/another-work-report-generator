@@ -93,6 +93,11 @@ const argv = yargs
     default: defaults.disableAutoOpenFile,
     type: 'boolean'
   })
+  .option('show-only-schedule', {
+    describe: 'Show only time schedule',
+    default: defaults.showOnlySchedule,
+    type: 'boolean'
+  })
   .wrap(yargs.terminalWidth())
   .detectLocale(false)
   .help()
@@ -117,6 +122,7 @@ settings.minCommitTime = argv.minCommitTime;
 settings.graduation = argv.graduation;
 settings.silent = argv.silent;
 settings.disableAutoOpenFile = argv.disableAutoOpenFile;
+settings.showOnlySchedule = argv.showOnlySchedule;
 
 // Computing settings
 settings.month = parseInt(settings.month, 10);
