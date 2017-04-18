@@ -1,9 +1,10 @@
 const edge = require('electron-edge');
 
-const assemblyFile = 'bin/TimeLibrary.dll';
+const assemblyFile = 'bin/SessionLibrary.dll';
 
 const test = edge.func({
   assemblyFile,
+  typeName: 'SessionLibrary.Startup',
   methodName: 'InvokeTest'
 });
 
