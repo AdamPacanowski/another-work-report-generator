@@ -24,6 +24,9 @@
   ],
   "license": "ISC",
   "dependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.24.1",
     "chalk": "1.1.3",
     "cross-spawn": "5.1.0",
     "electron": "1.6.2",
@@ -32,6 +35,8 @@
     "left-pad": "1.1.3",
     "lowdb": "^0.16.2",
     "opn": "4.0.2",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
     "yargs": "7.0.1"
   },
   "engines": {

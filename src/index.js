@@ -6,7 +6,7 @@ if (settings.showOnlySchedule) {
 
   //process.exit(0);
   const spawn = require('cross-spawn');
-  const ls = spawn('node_modules/.bin/electron', ['src/electron_app']);
+  const ls = spawn('node_modules/.bin/electron', ['-r','babel-register', 'src/electron_app']);
 
   ls.stdout.on( 'data', data => {
     console.log( `stdout: ${data}` );
