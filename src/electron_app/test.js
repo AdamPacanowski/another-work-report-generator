@@ -1,3 +1,4 @@
+const remote = require('electron').remote;  
 const edge = require('electron-edge');
 
 const assemblyFile = 'bin/SessionLibrary.dll';
@@ -7,6 +8,8 @@ const test = edge.func({
   typeName: 'SessionLibrary.Startup',
   methodName: 'InvokeTest'
 });
+
+console.log('app', remote.getGlobal('app'));
 
 test({
   test: (status) => { 

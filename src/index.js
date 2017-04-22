@@ -20,11 +20,11 @@ if (settings.showOnlySchedule) {
     console.log( `child process exited with code ${code}` );
   });
 
-  console.log('Press any key to exit');
+  // console.log('Press any key to exit');
 
-  process.stdin.setRawMode(true);
-  process.stdin.resume();
-  process.stdin.on('data', process.exit.bind(process, 0));
+  // process.stdin.setRawMode(true);
+  // process.stdin.resume();
+  // process.stdin.on('data', process.exit.bind(process, 0));
 } else {
   const commitsGetter = require('./commitsGetter');
   const commitsParser = require('./commitsParser');

@@ -2,8 +2,6 @@ const {app, BrowserWindow, Tray, Menu} = require('electron')
 const path = require('path')
 const url = require('url')
 
-
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
@@ -23,6 +21,7 @@ function createWindow () {
   win.on('minimize',function(event){
     event.preventDefault();
     win.hide();
+    win.setSkipTaskbar(true);
   });
 
   win.on('close', function (event) {
@@ -40,6 +39,7 @@ function createWindow () {
       label: 'Show App', 
       click: function() {
         win.show();
+        win.setSkipTaskbar(false);
       }
     }, { 
       label: 'Quit', 
@@ -52,6 +52,7 @@ function createWindow () {
 
   // Call this again for Linux because we modified the context menu
   appIcon.setContextMenu(contextMenu);
+  global.app = app;
 
   // Open the DevTools.
   //win.webContents.openDevTools()
