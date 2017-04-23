@@ -2,7 +2,7 @@ require('./prerequirements');
 const settings = require('./settings');
 
 if (settings.showOnlySchedule) {
-  require('./windows/timelogger.js');
+  // require('./windows/timelogger.js');
 
   //process.exit(0);
   const spawn = require('cross-spawn');

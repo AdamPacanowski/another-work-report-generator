@@ -14,7 +14,7 @@ const sessionHandler = edge.func({
   methodName: 'InvokeTest'
 });
 
-const documentsPath = app.getPath('documents');
+/*const documentsPath = app.getPath('documents');
 const applicationFolder = path.join(documentsPath, 'another-work-report-generator');
 
 if (!fs.existsSync(applicationFolder)) {
@@ -27,7 +27,7 @@ const db = lowdb(dbFile, {
 });
 db.defaults({
   log: []
-}).write();
+}).write();*/
 
 sessionHandler({
   test: (status) => {
@@ -38,11 +38,11 @@ sessionHandler({
     node.appendChild(textnode);
     document.getElementsByTagName('body')[0].appendChild(node);
 
-    db.get('log')
+    /*db.get('log')
       .push({
         time,
         eventType: status
       })
-      .write();
+      .write();*/
   }
 });
