@@ -22,7 +22,7 @@ function getRepositoriesCommits(settings, gitFolders) {
   return gitFolders.map((gitFolder) => ({
     gitFolder,
     commits: execSync(
-      `git --git-dir ${ gitFolder } log ` +
+      `git --git-dir "${ gitFolder }" log ` +
       `--after="${ settings.startTime.toISOString() }" --before="${ settings.endTime.toISOString() }" --author="${ settings.author }" ` +
       '--branches --no-merges  --pretty=format:"%H;%h;%at;%s" --shortstat'
     ).toString().split('\n\n').filter((commit) => !!commit.length)
