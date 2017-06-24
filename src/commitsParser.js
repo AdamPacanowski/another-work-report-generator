@@ -30,6 +30,7 @@ const commitsParser = {
 
   standardCalculation: (rawCommits, settings) => {
     const commits = commitsParser._parse(rawCommits, settings);
+    const commitsLengthMap = {};
 
     commits.forEach((filteredCommit) => {
       const dayCommits = commits.filter((commit) => commit.shortDate === filteredCommit.shortDate);
@@ -37,6 +38,10 @@ const commitsParser = {
       const ratio = filteredCommit.lines / linesInDay;
 
       filteredCommit.time = parseInt((ratio * settings.maxHoursPerDay) / settings.graduation, 10) * settings.graduation || settings.minCommitTime;
+
+      if (!commitsLengthMap[filteredCommit.shortDate]) {
+        commitsLengthMap[filteredCommit.shortDate] = dayCommits.length; 
+      }
     });
 
     if (commits.length) {
@@ -45,7 +50,10 @@ const commitsParser = {
       console.log(chalk.red('No commits found.'));
       process.exit(0);
     }
-    return commits;
+    return  {
+      commits,
+      commitsLengthMap,
+    };
   }
 };
 
