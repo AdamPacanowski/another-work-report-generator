@@ -42,5 +42,7 @@ module.exports = {
   minCommitTime: 0.25,
   graduation: 0.25,
   silent: false,
-  disableAutoOpenFile: false
+  disableAutoOpenFile: false,
+  disableCalendar: false,
+  disableInteractive: false,
 };

@@ -14,12 +14,20 @@ const excelCreator = require('./excelCreator');
 
 const rawCommits = commitsGetter(settings);
 const calculatedCommits = commitsParser.standardCalculation(rawCommits, settings);
-calendar(settings.startTime, settings.endTime, calculatedCommits.commitsLengthMap);
 
-rl.question('Are you sure to generate report file ? (Y/N)', (answer) => {
-  if (answer.toLowerCase() === 'y') {
-    excelCreator(calculatedCommits.commits, settings);
-  }
+if (!settings.disableCalendar) {
+  calendar(settings.startTime, settings.endTime, calculatedCommits.commitsLengthMap);
+}
 
+if (!settings.disableInteractive) {
+  rl.question('Are you sure to generate report file ? (Y/N) ', (answer) => {
+    if (answer.toLowerCase() === 'y') {
+      excelCreator(calculatedCommits.commits, settings);
+    }
+
+    rl.close();
+  });
+} else {
+  excelCreator(calculatedCommits.commits, settings);
   rl.close();
-});
+}

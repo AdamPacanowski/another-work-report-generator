@@ -93,6 +93,16 @@ const argv = yargs
     default: defaults.disableAutoOpenFile,
     type: 'boolean'
   })
+  .option('disable-calendar', {
+    describe: 'Disable displaying calendar',
+    default: defaults.disableCalendar,
+    type: 'boolean'
+  })
+  .option('disable-interactive', {
+    describe: 'Disable interactive command line',
+    default: defaults.disableInteractive,
+    type: 'boolean'
+  })
   .wrap(yargs.terminalWidth())
   .detectLocale(false)
   .help()
@@ -117,6 +127,8 @@ settings.minCommitTime = argv.minCommitTime;
 settings.graduation = argv.graduation;
 settings.silent = argv.silent;
 settings.disableAutoOpenFile = argv.disableAutoOpenFile;
+settings.disableCalendar = argv.disableCalendar;
+settings.disableInteractive = argv.disableInteractive;
 
 // Computing settings
 settings.month = parseInt(settings.month, 10);
