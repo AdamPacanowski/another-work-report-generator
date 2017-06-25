@@ -143,9 +143,9 @@ if (settings.silent) {
 }
 
 // Display settings
-console.log(chalk.blue('--- Settings ---'));
+console.log(chalk.bold('--- Settings ---'));
 for (let key in settings) {
-  console.log(chalk.blue(`${ key }: ${ settings[key] }`));
+  console.log(chalk.white(`${ key }: `) + chalk.cyan(settings[key]));
 }
 
 module.exports = settings;
