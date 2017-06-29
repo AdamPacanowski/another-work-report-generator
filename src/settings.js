@@ -1,6 +1,7 @@
 const yargs = require('yargs');
 const chalk = require('chalk');
 const leftPad = require('left-pad');
+const moment = require('moment');
 const defaults = require('./defaults');
 
 // Parse utils
@@ -145,7 +146,13 @@ if (settings.silent) {
 // Display settings
 console.log(chalk.bold('--- Settings ---'));
 for (let key in settings) {
-  console.log(chalk.white(`${ key }: `) + chalk.cyan(settings[key]));
+  var toDisplay = settings[key];
+
+  if (settings[key] instanceof Date) {
+    toDisplay = moment(settings[key]).format();
+  }
+
+  console.log(chalk.white(`${ key }: `) + chalk.cyan(toDisplay));
 }
 
 module.exports = settings;

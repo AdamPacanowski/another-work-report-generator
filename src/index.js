@@ -4,7 +4,6 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-require('date-utils');
 require('./prerequirements');
 const settings = require('./settings');
 const calendar = require('./calendar');
