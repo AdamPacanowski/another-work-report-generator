@@ -80,7 +80,7 @@ List of options:
 
 * Added calendar with commits counters.
 
-![calendar-screen](images/calendar.png)
+![calendar-screen](images/calendar.PNG)
 
 * Added question about report generator.
 * Added new parameters (```disable-calendar``` and ```disable-interactive```)
