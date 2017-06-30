@@ -92,6 +92,10 @@ List of options:
 * Quick fix - Problem with days on calendar.
 * Quick fix - Wrong displayed month.
 
+### 3.1.2
+
+* Quick fix - Removed console.log.
+
 
 
 ## TODO List

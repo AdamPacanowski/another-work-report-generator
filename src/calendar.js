@@ -50,7 +50,6 @@ function getCommitNo(shortDate, commitsLengthMap) {
 const DAY_SPACES = 7;
 
 const calendar = function(startDate, endDate, commitsLengthMap) {
-  console.log(commitsLengthMap);
   const mStartDate = moment(startDate);
   const mEndDate = moment(endDate);
   const daysToDisplay = {};
