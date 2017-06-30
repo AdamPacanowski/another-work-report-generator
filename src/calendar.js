@@ -37,8 +37,8 @@ function drawDayNames() {
 
 function drawMonthSignature(month, year) {
   const availableChars = 7 * DAY_SPACES;
-  const signature = `${month}.${year}`;
-  const left = Math.floor((availableChars + signature.length) / 2 )
+  const signature = `${+month + 1}.${year}`;
+  const left = Math.floor((availableChars + signature.length) / 2 );
 
   console.log(leftPad(signature, left));
 }
@@ -50,6 +50,7 @@ function getCommitNo(shortDate, commitsLengthMap) {
 const DAY_SPACES = 7;
 
 const calendar = function(startDate, endDate, commitsLengthMap) {
+  console.log(commitsLengthMap);
   const mStartDate = moment(startDate);
   const mEndDate = moment(endDate);
   const daysToDisplay = {};
@@ -74,7 +75,7 @@ const calendar = function(startDate, endDate, commitsLengthMap) {
 
     for(let i = 1; i <= daysInThisMonth; i++) {
       const dayNo = getDay(i, month, year);
-      const shortDate = (new Date(year, month, i)).toISOString().split('T')[0];
+      const shortDate = `${ year }-${ leftPad(+month + 1, 2,'0') }-${ leftPad(i, 2, '0') }`;
 
       const commitNo = getCommitNo(shortDate, commitsLengthMap);
       let chalkMethod;

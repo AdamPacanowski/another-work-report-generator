@@ -87,6 +87,11 @@ List of options:
 * Improved displaying in console.
 * Fixed problem with filepath containing spaces.
 
+### 3.1.1
+
+* Quick fix - Problem with days on calendar.
+* Quick fix - Wrong displayed month.
+
 
 
 ## TODO List
