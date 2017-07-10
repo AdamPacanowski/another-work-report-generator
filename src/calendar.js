@@ -47,6 +47,10 @@ function getCommitNo(shortDate, commitsLengthMap) {
   return commitsLengthMap[shortDate] || 0;
 }
 
+function isInDateRange(startDate, endDate, day, month, year) {
+  return moment(new Date(year, month, day)).isBetween(startDate, endDate);
+}
+
 const DAY_SPACES = 7;
 
 const calendar = function(startDate, endDate, commitsLengthMap) {
@@ -54,7 +58,7 @@ const calendar = function(startDate, endDate, commitsLengthMap) {
   const mEndDate = moment(endDate);
   const daysToDisplay = {};
 
-  for (let j = mStartDate; j.diff(mEndDate); j.add(1, 'days')) {
+  for (let j = mStartDate; j.diff(mEndDate) < 0; j.add(1, 'days')) {
     daysToDisplay[getDateHash(j)] = [];
   }
 
@@ -77,12 +81,17 @@ const calendar = function(startDate, endDate, commitsLengthMap) {
       const shortDate = `${ year }-${ leftPad(+month + 1, 2,'0') }-${ leftPad(i, 2, '0') }`;
 
       const commitNo = getCommitNo(shortDate, commitsLengthMap);
+      const isInDateRangeResult = isInDateRange(startDate, endDate, i, month, year);
       let chalkMethod;
 
       if (commitNo) {
         chalkMethod = chalk.green;
       } else {
         chalkMethod = chalk.red;
+      }
+
+      if (!isInDateRangeResult) {
+        chalkMethod = chalk.grey;
       }
 
       const informationToDisplay = `(${ commitNo })${ i }`;
@@ -108,10 +117,3 @@ const calendar = function(startDate, endDate, commitsLengthMap) {
 };
 
 module.exports = calendar;
-
-/* 
-  Czerwiec
-  Pon, wt, śr, cz, pią, sob, nie
-             (5)1,   2,   3,   4
-    5,  6,  7,  8,   9,  10,  11
-*/

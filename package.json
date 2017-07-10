@@ -1,6 +1,6 @@
 {
   "name": "another-work-report-generator",
-  "version": "3.1.2",
+  "version": "3.2.0",
   "description": "Another (probably best) work report generator.",
   "main": "src/index.js",
   "scripts": {

@@ -45,4 +45,7 @@ module.exports = {
   disableAutoOpenFile: false,
   disableCalendar: false,
   disableInteractive: false,
+  lastHours: null,
+  output: 'excel',
+  locale: 'en',
 };

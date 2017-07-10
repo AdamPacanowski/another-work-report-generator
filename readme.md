@@ -50,6 +50,9 @@ List of options:
 * ```disable-auto-open-file``` - Disable auto opening new report file (default: false)
 * ```disable-calendar``` - Disable displaying calendar with commits counters (default: false)
 * ```disable-interactive``` - Disable interactive questions (default: false)
+* ```last-hours``` - Take commits from last [x] hours. This property override month and year properties. (default: null)
+* ```output``` - Application output {excel, console} (default: excel)
+* ```locale``` - Date locale (now only for console output) (default: en)
 
 ## Changelog
 
@@ -96,6 +99,10 @@ List of options:
 
 * Quick fix - Removed console.log.
 
+### 3.2.0
+
+* Improve calendar (days are greyed out when not in date range).
+* Add ```last-hours```, ```output``` and ```locale``` options.
 
 
 ## TODO List

@@ -104,6 +104,32 @@ const argv = yargs
     default: defaults.disableInteractive,
     type: 'boolean'
   })
+  .option('last-hours', {
+    describe: 'Take commits from last [x] hours. This property override month and year properties.',
+    default: defaults.lastHours,
+    coerce: opt => {
+      if (opt !== null) {
+        return parseNumber(opt, 'Last hours');
+      }
+      return null;
+    }
+  })
+  .option('output', {
+    describe: 'Application output {excel, console}',
+    default: defaults.output,
+    coerce: opt => {
+      if (['excel', 'console'].indexOf(opt) === -1) {
+        throw new Error('Parse error - Wrong output parameter.');
+      }
+
+      return opt;
+    }
+  })
+  .option('locale', {
+    describe: 'Date locale (now only for console output)',
+    default: defaults.locale,
+    type: 'string'
+  })
   .wrap(yargs.terminalWidth())
   .detectLocale(false)
   .help()
@@ -130,12 +156,22 @@ settings.silent = argv.silent;
 settings.disableAutoOpenFile = argv.disableAutoOpenFile;
 settings.disableCalendar = argv.disableCalendar;
 settings.disableInteractive = argv.disableInteractive;
+settings.lastHours = argv.lastHours;
+settings.output = argv.output;
+settings.locale = argv.locale;
+
 
 // Computing settings
 settings.month = parseInt(settings.month, 10);
 settings.year = parseInt(settings.year, 10);
-settings.startTime = new Date(settings.year, settings.month - 1, 1);
-settings.endTime = new Date(settings.year + (settings.month === 12 ? 1 : 0), settings.month % 12, 1);
+
+if (settings.lastHours === null) {
+  settings.startTime = new Date(settings.year, settings.month - 1, 1);
+  settings.endTime = new Date(settings.year + (settings.month === 12 ? 1 : 0), settings.month % 12, 1);
+} else {
+  settings.startTime = moment().subtract(settings.lastHours, 'hours').toDate();
+  settings.endTime = new Date();
+}
 settings.reportName = `report-${ settings.year }-${ leftPad(settings.month, 2, '0') }.xlsx`;
 
 // Disable output
