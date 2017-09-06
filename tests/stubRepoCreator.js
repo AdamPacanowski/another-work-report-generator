@@ -9,8 +9,9 @@ const TEST_FILE_NAME = 'code.txt';
 const DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
 
 function makeCommit(commitDefinition, i) {
-    const commitDate = moment(commitDefinition.date).format(DATE_RFC2822);
-    console.log(commitDate);
+    // const commitDate = moment(commitDefinition.date).format(DATE_RFC2822);
+    console.log(commitDefinition.date)
+    // console.log(commitDate);
 
     execSync(`cd ${os.tmpdir()}/${ TEST_FOLDER_NAME }`);
     execSync(`git add -A`);
