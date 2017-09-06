@@ -39,3 +39,6 @@ jspm_packages
 # Generated files
 *.xls
 *.xlsx
+
+# Git test folder
+testStubGitRepo

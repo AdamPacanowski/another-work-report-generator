@@ -5,7 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node ./src/index",
-    "lint": "node node_modules/eslint/bin/eslint src"
+    "lint": "node node_modules/eslint/bin/eslint src",
+    "test": "node node_modules/jest/bin/jest tests",
+    "test:coverage": "node node_modules/jest/bin/jest tests --coverage"
   },
   "bin": {
     "another-work-report-generator": "bin/another-work-report-generator"
@@ -36,6 +38,8 @@
     "node": ">=6.9.0"
   },
   "devDependencies": {
-    "eslint": "3.18.0"
+    "eslint": "3.18.0",
+    "jest": "21.0.1",
+    "rimraf": "^2.6.1"
   }
 }
