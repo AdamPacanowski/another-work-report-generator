@@ -9,15 +9,14 @@ const TEST_FILE_NAME = 'code.txt';
 const DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
 
 function makeCommit(commitDefinition, i) {
-    console.log(arguments)
-    // const commitDate = moment(commitDefinition.date).format(DATE_RFC2822);
-    // console.log(commitDefinition)
-    // console.log(commitDate);
+    const commitDate = moment(commitDefinition.date).format(DATE_RFC2822);
 
-    execSync(`cd ${os.tmpdir()}/${ TEST_FOLDER_NAME }`);
-    execSync(`git add -A`);
-    execSync(`git commit -m "test-commit-${ i }"`);
-    execSync(`git commit --amend `)
+    fs.writeFileSync(
+        `${os.tmpdir()}/${ TEST_FOLDER_NAME }/${ TEST_FILE_NAME }`,
+        createXLinesString(commitDefinition.linesChanged)
+    );
+
+    execSync(`cd ${os.tmpdir()}/${ TEST_FOLDER_NAME } && git add -A && git commit -m "test-commit-${ i }" && git commit --amend --no-edit --date="${ commitDate }"`);
 }
 
 function createXLinesString(x) {
@@ -43,11 +42,5 @@ module.exports = function(commitDefinitions) {
 
     execSync(`git init ${os.tmpdir()}/${ TEST_FOLDER_NAME }`);
 
-    fs.writeFileSync(
-        `${os.tmpdir()}/${ TEST_FOLDER_NAME }/${ TEST_FILE_NAME }`,
-        createXLinesString(10)
-    );
-
-    // console.log(commitDefinitions)
     commitDefinitions.forEach(makeCommit);
 };
