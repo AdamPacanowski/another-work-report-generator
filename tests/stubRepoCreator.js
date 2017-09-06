@@ -10,7 +10,7 @@ const DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
 
 function makeCommit(commitDefinition, i) {
     // const commitDate = moment(commitDefinition.date).format(DATE_RFC2822);
-    console.log(commitDefinition.date)
+    console.log(commitDefinition)
     // console.log(commitDate);
 
     execSync(`cd ${os.tmpdir()}/${ TEST_FOLDER_NAME }`);
