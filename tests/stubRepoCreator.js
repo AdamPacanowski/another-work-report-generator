@@ -9,7 +9,7 @@ const TEST_FILE_NAME = 'code.txt';
 const DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
 
 function makeCommit(commitDefinition, i) {
-    const commitDate = moment(commitDefinition).lang('en').format(DATE_RFC2822);
+    const commitDate = moment(commitDefinition).format(DATE_RFC2822);
     console.log(commitDate);
 
     execSync(`cd ${os.tmpdir()}/${ TEST_FOLDER_NAME }`);
