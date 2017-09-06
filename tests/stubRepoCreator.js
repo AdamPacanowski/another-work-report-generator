@@ -9,6 +9,7 @@ const TEST_FILE_NAME = 'code.txt';
 const DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
 
 function makeCommit(commitDefinition, i) {
+    console.log(arguments)
     // const commitDate = moment(commitDefinition.date).format(DATE_RFC2822);
     // console.log(commitDefinition)
     // console.log(commitDate);
@@ -47,5 +48,6 @@ module.exports = function(commitDefinitions) {
         createXLinesString(10)
     );
 
+    // console.log(commitDefinitions)
     commitDefinitions.forEach(makeCommit);
 };
