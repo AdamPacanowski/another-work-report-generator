@@ -9,8 +9,11 @@ test('getDateHash', () => {
     }, {
         date: new Date('2017-01-01 14:00:00'),
         linesChanged: 100
-    },{
+    }, {
         date: new Date('2017-01-02 12:00:00'),
         linesChanged: 50
+    }, {
+        date: new Date('2017-01-03 12:00:00'),
+        linesChanged: 100
     }]);
 });

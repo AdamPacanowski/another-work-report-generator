@@ -19,6 +19,13 @@ function findRepositories(settings) {
 }
 
 function getRepositoriesCommits(settings, gitFolders) {
+  gitFolders.forEach(gitFolder => {
+  console.log( `git --git-dir "${ gitFolder }" log ` +
+      `--after="${ settings.startTime.toISOString() }" --before="${ settings.endTime.toISOString() }" --author="${ settings.author }" ` +
+      '--branches --no-merges  --pretty=format:"%H;%h;%at;%s" --shortstat')
+  })
+
+
   return gitFolders.map((gitFolder) => ({
     gitFolder,
     commits: execSync(

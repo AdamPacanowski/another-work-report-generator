@@ -130,7 +130,7 @@ const argv = yargs
     default: defaults.locale,
     type: 'string'
   })
-  .wrap(yargs.terminalWidth())
+  .wrap(yargs.terminalWidth() || 100)
   .detectLocale(false)
   .help()
   .demandOption((() => {
