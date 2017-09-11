@@ -147,3 +147,45 @@ test('two month calendar', () => {
     expect(consoleBuffer[17]).toBe(prepareNextValues(20, 26, 'red'));
     expect(consoleBuffer[18]).toBe(prepareNextValues(27, 28, 'red'));
 });
+
+test('not full month', () => {
+    const startDate = new Date('2017-01-05');
+    const endDate = new Date('2017-01-20');
+    const commitsLengthMap = {
+        '2017-01-04': 1,
+        '2017-01-05': 2,
+        '2017-01-06': 1,
+        '2017-01-19': 5,
+        '2017-01-22': 1
+    };
+
+    calendar(startDate, endDate, commitsLengthMap);
+
+    expect(consoleBuffer[0]).toBe('-------------------------------------------------');
+    expect(consoleBuffer[1]).toBe('                     1.2017');
+    expect(consoleBuffer[2]).toBe('    Mon    Tue    Wed    Thu    Fri    Sat    Sun');
+    expect(consoleBuffer[3]).toBe('-------------------------------------------------');    
+    expect(consoleBuffer[4]).toBe(chalk.gray(leftPad('(0)1', 49)));
+    expect(consoleBuffer[5]).toBe(
+        [
+            prepareValueToTest(0, 2, 'gray'),
+            prepareValueToTest(0, 3, 'gray'),
+            prepareValueToTest(1, 4, 'gray'), 
+            prepareValueToTest(2, 5, 'green'),
+            prepareValueToTest(1, 6, 'green'), 
+            prepareValueToTest(0, 7, 'red'),
+            prepareValueToTest(0, 8, 'red')
+        ].join('')
+    );
+    expect(consoleBuffer[6]).toBe(prepareNextValues(9, 15, 'red'));
+    expect(consoleBuffer[7]).toBe(
+        [
+            prepareNextValues(16, 18, 'red'),
+            prepareValueToTest(5, 19, 'green'),
+            prepareNextValues(20, 21, 'gray'),
+            prepareValueToTest(1, 22, 'gray'),
+        ].join('')
+    );
+    expect(consoleBuffer[8]).toBe(prepareNextValues(23, 29, 'gray'));
+    expect(consoleBuffer[9]).toBe(prepareNextValues(30, 31, 'gray'));    
+});
