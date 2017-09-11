@@ -2,6 +2,10 @@ const leftPad = require('left-pad');
 const moment = require('moment');
 const chalk = require('chalk');
 
+/**
+ * Get date hash.
+ * @param {Moment} date 
+ */
 function getDateHash(date) {
   return `${ date.month() };${ date.year() }`;
 }
@@ -17,18 +21,28 @@ function daysInMonth(month, year) {
   return moment(`${ year }-${ newMonth }`, 'YYYY-MM').daysInMonth();
 }
 
+/**
+ * Get day (range => 0 - 6)
+ * @param {number} day (1 - 31)
+ * @param {number} month (0 - 11)
+ * @param {number} year
+ */
 function getDay(day, month, year) {
   return new Date(year, month, day).getDay();
 }
 
 /**
- * Get string in format YYYY-MM-DD
+ * Get string in format YYYY-MM-DD.
  * @param {Date} date 
  */
 function getYYYYMMDD(date) {
   return moment(date).format('YYYY-MM-DD');
 }
 
+/**
+ * Get indent for day.
+ * @param {number} dayNo (0 - 6)
+ */
 function getDayIndent(dayNo) {
   if (dayNo) {
     return dayNo;
@@ -37,10 +51,16 @@ function getDayIndent(dayNo) {
   return 7;
 }
 
+/**
+ * Draw line in console.
+ */
 function drawLine() {
   console.log(leftPad('', 7 * DAY_SPACES, '-'));
 }
 
+/**
+ * Draw day names in console.
+ */
 function drawDayNames() {
   const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const dayNamesString = dayNames.map(dayName => {
@@ -50,6 +70,11 @@ function drawDayNames() {
   console.log(dayNamesString);
 }
 
+/**
+ * Draw month signature in console.
+ * @param {*} month (0 - 11)
+ * @param {*} year 
+ */
 function drawMonthSignature(month, year) {
   const availableChars = 7 * DAY_SPACES;
   const signature = `${+month + 1}.${year}`;
@@ -58,10 +83,23 @@ function drawMonthSignature(month, year) {
   console.log(leftPad(signature, left));
 }
 
+/**
+ * Get number of commits for proper date
+ * @param {String} shortDate (YYYY-MM-DD)
+ * @param {Object} commitsLengthMap 
+ */
 function getCommitNo(shortDate, commitsLengthMap) {
   return commitsLengthMap[shortDate] || 0;
 }
 
+/**
+ * Check is date in range. 
+ * @param {Date} startDate 
+ * @param {Date} endDate 
+ * @param {*} day 
+ * @param {*} month (0 - 11)
+ * @param {*} year 
+ */
 function isInDateRange(startDate, endDate, day, month, year) {
   return moment(new Date(year, month, day))
     .isBetween(
