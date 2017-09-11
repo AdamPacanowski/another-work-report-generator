@@ -104,6 +104,10 @@ List of options:
 * Improve calendar (days are greyed out when not in date range).
 * Add ```last-hours```, ```output``` and ```locale``` options.
 
+### 3.2.1
+* Fixed problem with first day color in calendar.
+* Fixed problem with wrong indentation for first week.
+* Fixed problem with wrong days number in month.
 
 ## Development
 

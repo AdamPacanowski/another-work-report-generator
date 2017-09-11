@@ -6,8 +6,15 @@ function getDateHash(date) {
   return `${ date.month() };${ date.year() }`;
 }
 
+/**
+ * Get the number of days in month.
+ * @param {number} month (0 - 11)
+ * @param {number} year
+ */
 function daysInMonth(month, year) {
-  return new Date(year, month, 0).getDate();
+  const newMonth = leftPad(Number(month) + 1, 2, '0');
+
+  return moment(`${ year }-${ newMonth }`, 'YYYY-MM').daysInMonth();
 }
 
 function getDay(day, month, year) {
