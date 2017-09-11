@@ -14,6 +14,14 @@ function getDay(day, month, year) {
   return new Date(year, month, day).getDay();
 }
 
+/**
+ * Get string in format YYYY-MM-DD
+ * @param {Date} date 
+ */
+function getYYYYMMDD(date) {
+  return moment(date).format('YYYY-MM-DD');
+}
+
 function getDayIndent(dayNo) {
   if (dayNo) {
     return dayNo;
@@ -48,11 +56,23 @@ function getCommitNo(shortDate, commitsLengthMap) {
 }
 
 function isInDateRange(startDate, endDate, day, month, year) {
-  return moment(new Date(year, month, day)).isBetween(startDate, endDate);
+  return moment(new Date(year, month, day))
+    .isBetween(
+      getYYYYMMDD(startDate), 
+      getYYYYMMDD(endDate), 
+      null, 
+      '[)'
+    );
 }
 
 const DAY_SPACES = 7;
 
+/**
+ * Display calendar in console.
+ * @param {Date} startDate 
+ * @param {Date} endDate 
+ * @param {Object} commitsLengthMap - key: YYYY-MM-DD value: number
+ */
 const calendar = function(startDate, endDate, commitsLengthMap) {
   const mStartDate = moment(startDate);
   const mEndDate = moment(endDate);
@@ -99,7 +119,7 @@ const calendar = function(startDate, endDate, commitsLengthMap) {
       if (i === 1) {
         lineToDisplay += chalkMethod(leftPad(
           informationToDisplay, 
-          getDayIndent(dayNo * DAY_SPACES)
+          getDayIndent(dayNo) * DAY_SPACES
         ));
       } else {
         lineToDisplay += chalkMethod(leftPad(

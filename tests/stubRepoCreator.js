@@ -19,7 +19,7 @@ function makeCommit(commitDefinition, i) {
         createXLinesString(commitDefinition.linesChanged)
     );
 
-    execSync(`cd ${os.tmpdir()}/${ TEST_FOLDER_NAME }/${ TEST_REPO_FOLDER_NAME } && git add -A && git commit -m "test-commit-${ i }" && git commit --amend --no-edit --date="${ commitDate }"`);
+    execSync(`cd ${os.tmpdir()}/${ TEST_FOLDER_NAME }/${ TEST_REPO_FOLDER_NAME } && git add -A && SET GIT_AUTHOR_DATE="${ commitDate }" && SET GIT_COMMITTER_DATE="${ commitDate }" && git commit -m "test-commit-${ i }"`);
 }
 
 function createXLinesString(x) {

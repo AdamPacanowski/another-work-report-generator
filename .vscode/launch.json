@@ -28,6 +28,23 @@
             "console": "internalConsole",
             "sourceMaps": true,
             "outFiles": []
-        }
+        },
+        {
+            "name": "Debug Jest tests",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}\\node_modules\\jest\\bin\\jest.js",
+            "args": [
+              "--runInBand",
+              "--no-cache",
+              "tests"
+            ],
+            "runtimeArgs": [
+              "--inspect-brk"
+            ],
+            "cwd": "${workspaceRoot}",
+            "protocol": "inspector",
+            "console": "integratedTerminal"
+          }
     ]
 }

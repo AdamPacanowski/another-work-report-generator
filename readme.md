@@ -105,6 +105,10 @@ List of options:
 * Add ```last-hours```, ```output``` and ```locale``` options.
 
 
+## Development
+
+Development requires node version ```>=8.4.0``` (required for debugging tests)
+
 ## TODO List
 
 * Improve ```standardCalculation``` method
