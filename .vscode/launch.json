@@ -11,7 +11,7 @@
             "program": "${workspaceRoot}\\src\\index.js",
             "stopOnEntry": false,
             "args": [
-                "--path=C:\\Users\\pacibum\\AppData\\Local\\Temp\\testStubGitRepo10",
+                "--path=C:\\Users\\pacibum\\AppData\\Local\\Temp\\testStubGitRepo",
                 "--disableInteractive",
                 "--year=2017",
                 "--month=1"
