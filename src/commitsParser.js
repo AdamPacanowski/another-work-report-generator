@@ -1,7 +1,33 @@
 const path = require('path');
 const chalk = require('chalk');
 
+/**
+ * @typedef {Object} ParsedCommit
+ * @property {Date} date Commit date
+ * @property {String} fullhash Commit fullhash e.g. "fb1eb3ead0e20fed1029bea0edd7626964df326b"
+ * @property {String} hash Commit shorthash e.g. "fb1eb3e"
+ * @property {number} lines Lines changed in commit
+ * @property {String} project Git repository folder name
+ * @property {String} shortDate Date in format YYYY-MM-DD
+ * @property {String} text Commit message
+ */
+
+/**
+ * @typedef {Object} CalculatedCommit
+ * @property {ParsedCommit[]} commits Parsed commit with time property
+ * @property {number} ParsedCommit.time Estimated work on commit
+ * @property {Object} commitsLengthMap key: YYYY-MM-DD value: number
+ */
+
 const commitsParser = {
+  /**
+   * Parse raw commmits (data in string) to array of objects.
+   * @param {RepositoriesCommits[]} rawCommits commits to parse
+   * @param {Object} settings
+   * @param {Date} settings.startTime
+   * @param {Date} settings.endTime
+   * @returns {ParsedCommit[]}
+   */
   _parse: (rawCommits, settings) => {
     const commits = rawCommits
       .reduce((commitArray, gitReport) => commitArray.concat(
@@ -28,6 +54,17 @@ const commitsParser = {
     return commits;
   },
 
+  /**
+   * Standard method to calculate commits times.
+   * @param {RepositoriesCommits[]} rawCommits commits to parse
+   * @param {Object} settings
+   * @param {Date} settings.startTime
+   * @param {Date} settings.endTime
+   * @param {number} settings.maxHoursPerDay
+   * @param {number} settings.graduation
+   * @param {number} settings.minCommitTime
+   * @returns {CalculatedCommit}
+   */
   standardCalculation: (rawCommits, settings) => {
     const commits = commitsParser._parse(rawCommits, settings);
     const commitsLengthMap = {};
