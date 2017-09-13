@@ -1,8 +1,13 @@
 const os = require('os');
 const path = require('path');
 const { execSync } = require('child_process');
+const _ = require('lodash');
 const commitsGetter = require('../src/commitsGetter');
 const stubRepoCreator = require('./utils/stubRepoCreator');
+
+function countInString(str, schar) {
+    return (str.match(new RegExp(schar, "g")) || []).length;
+};
 
 test('two repositories test', () => {
     stubRepoCreator([{
@@ -48,5 +53,14 @@ test('two repositories test', () => {
     });
 
     expect(commits.length).toBe(2);
-    expect(commits[0].gitFolder).toBe(path.join(tempDir, 'testStubGitRepo', 'repo1', '.git'));
+
+    const repo1 = _.find(commits, {
+        gitFolder: path.join(tempDir, 'testStubGitRepo', 'repo1', '.git') 
+    });
+
+    expect(repo1.commits.length).toBe(4);
+    expect(repo1.commits[3].indexOf('10 insertions')).not.toEqual(-1);
+    expect(countInString(repo1.commits[0], ';')).toEqual(3);
+
+    expect(commits[1].commits[0].indexOf('test-commit')).not.toEqual(-1);
 });
