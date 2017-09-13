@@ -36,16 +36,18 @@ function createXLinesString(x) {
  * Method used to create stub repo (test purposes)
  */
 module.exports = function(commitDefinitions, settings) {   
-    console.log(os.tmpdir());
-
     if (!settings.doNotRemoveTestFolder) {
-        rimraf.sync(`${os.tmpdir()}/${ TEST_FOLDER_NAME }/${ settings.repoFolderName }`);
+        rimraf.sync(`${os.tmpdir()}/${ TEST_FOLDER_NAME }`);
 
         fs.mkdirSync(`${os.tmpdir()}/${ TEST_FOLDER_NAME }`);
     }
+
     fs.mkdirSync(`${os.tmpdir()}/${ TEST_FOLDER_NAME }/${ settings.repoFolderName }`);
 
     execSync(`git init ${os.tmpdir()}/${ TEST_FOLDER_NAME }/${ settings.repoFolderName }`);
+
+    // Disable "LF will be replaced by CRLF" warning
+    execSync(`cd ${os.tmpdir()}/${ TEST_FOLDER_NAME }/${ settings.repoFolderName } && git config core.autocrlf false`);
 
     commitDefinitions.forEach(makeCommit.bind(null, settings.repoFolderName));
 };
