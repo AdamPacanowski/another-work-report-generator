@@ -1,6 +1,7 @@
 const yargs = require('yargs');
 const chalk = require('chalk');
 const leftPad = require('left-pad');
+const rightPad = require('right-pad');
 const moment = require('moment');
 const defaults = require('./defaults');
 
@@ -179,16 +180,28 @@ if (settings.silent) {
   console.log = () => {};
 }
 
-// Display settings
-console.log(chalk.bold('--- Settings ---'));
-for (let key in settings) {
-  var toDisplay = settings[key];
+console.log(chalk.bold('Settings:'));
 
+const maxKeyLength = Object.keys(settings).reduce((noChars, key) => {
+  if (key.length > noChars) {
+    return key.length;
+  }
+
+  return noChars;
+}, 0);
+
+for (let key in settings) {
+  let toDisplay = settings[key];
+  
   if (settings[key] instanceof Date) {
     toDisplay = moment(settings[key]).format();
   }
 
-  console.log(chalk.white(`${ key }: `) + chalk.cyan(toDisplay));
+  console.log(
+    '  ' + 
+    chalk.white(rightPad(`${ key } `, maxKeyLength + 2, '.')) + ' : ' +
+    chalk.cyan(toDisplay)
+  );
 }
 
 module.exports = settings;

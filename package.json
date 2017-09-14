@@ -33,6 +33,7 @@
     "lodash": "^4.17.4",
     "moment": "2.18.1",
     "opn": "5.1.0",
+    "right-pad": "^1.0.1",
     "yargs": "7.0.1"
   },
   "engines": {

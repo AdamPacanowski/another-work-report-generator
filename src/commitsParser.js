@@ -81,8 +81,10 @@ const commitsParser = {
       }
     });
 
+    console.log('');
     if (commits.length) {
       console.log(chalk.green(`Found ${ commits.length } commit(s).`));
+      console.log('');
     } else {
       console.log(chalk.red('No commits found.'));
       process.exit(0);
