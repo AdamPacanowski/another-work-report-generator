@@ -11,7 +11,7 @@ const DAY_SPACES = 7;
  * @param {string} color 
  */
 function prepareValueToTest(firstNumber, secondNumber, color) {
-    return chalk[color](leftPad(
+  return chalk[color](leftPad(
         `(${ firstNumber })${ secondNumber }`,
         DAY_SPACES
     ));
@@ -27,148 +27,148 @@ function prepareValueToTest(firstNumber, secondNumber, color) {
  * @param {string} color 
  */
 function prepareNextValues(start, end, color) {
-    let text = '';
+  let text = '';
 
-    for (let i = start; i <= end; i++) {
-        text += chalk[color](leftPad(
+  for (let i = start; i <= end; i++) {
+    text += chalk[color](leftPad(
             `(0)${ i }`,
             DAY_SPACES
         ));
-    }
+  }
 
-    return text;
+  return text;
 }
 
 
 let consoleBuffer;
 
 beforeEach(() => {
-    consoleBuffer = [];
+  consoleBuffer = [];
 
-    console.log = (message) => {
-        consoleBuffer.push(message);
-    }
+  console.log = (message) => {
+    consoleBuffer.push(message);
+  };
 });
 
 test('simple calendar test', () => {
-    const startDate = new Date('2017-01-01');
-    const endDate = new Date('2017-02-01');
-    const commitsLengthMap = {
-        '2017-01-01': 1,
-        '2017-01-02': 2,
-        '2017-01-03': 1
-    };
+  const startDate = new Date('2017-01-01');
+  const endDate = new Date('2017-02-01');
+  const commitsLengthMap = {
+    '2017-01-01': 1,
+    '2017-01-02': 2,
+    '2017-01-03': 1
+  };
 
-    calendar(startDate, endDate, commitsLengthMap);
+  calendar(startDate, endDate, commitsLengthMap);
 
-    expect(consoleBuffer[0]).toBe('-------------------------------------------------');
-    expect(consoleBuffer[1]).toBe('                     1.2017');
-    expect(consoleBuffer[2]).toBe('    Mon    Tue    Wed    Thu    Fri    Sat    Sun');
-    expect(consoleBuffer[3]).toBe('-------------------------------------------------');    
-    expect(consoleBuffer[4]).toBe(chalk.green(leftPad('(1)1', 49)));
-    expect(consoleBuffer[5]).toBe(
+  expect(consoleBuffer[0]).toBe('-------------------------------------------------');
+  expect(consoleBuffer[1]).toBe('                     1.2017');
+  expect(consoleBuffer[2]).toBe('    Mon    Tue    Wed    Thu    Fri    Sat    Sun');
+  expect(consoleBuffer[3]).toBe('-------------------------------------------------');    
+  expect(consoleBuffer[4]).toBe(chalk.green(leftPad('(1)1', 49)));
+  expect(consoleBuffer[5]).toBe(
         [
-            prepareValueToTest(2, 2, 'green'),
-            prepareValueToTest(1, 3, 'green'),
-            prepareValueToTest(0, 4, 'red'), prepareValueToTest(0, 5, 'red'),
-            prepareValueToTest(0, 6, 'red'), prepareValueToTest(0, 7, 'red'),
-            prepareValueToTest(0, 8, 'red')
+          prepareValueToTest(2, 2, 'green'),
+          prepareValueToTest(1, 3, 'green'),
+          prepareValueToTest(0, 4, 'red'), prepareValueToTest(0, 5, 'red'),
+          prepareValueToTest(0, 6, 'red'), prepareValueToTest(0, 7, 'red'),
+          prepareValueToTest(0, 8, 'red')
         ].join('')
     );
-    expect(consoleBuffer[6]).toBe(prepareNextValues(9, 15, 'red'));
-    expect(consoleBuffer[7]).toBe(prepareNextValues(16, 22, 'red'));
-    expect(consoleBuffer[8]).toBe(prepareNextValues(23, 29, 'red'));
-    expect(consoleBuffer[9]).toBe(prepareNextValues(30, 31, 'red'));
+  expect(consoleBuffer[6]).toBe(prepareNextValues(9, 15, 'red'));
+  expect(consoleBuffer[7]).toBe(prepareNextValues(16, 22, 'red'));
+  expect(consoleBuffer[8]).toBe(prepareNextValues(23, 29, 'red'));
+  expect(consoleBuffer[9]).toBe(prepareNextValues(30, 31, 'red'));
 });
 
 test('two month calendar', () => {
-    const startDate = new Date('2017-01-01');
-    const endDate = new Date('2017-03-01');
-    const commitsLengthMap = {
-        '2017-01-01': 1,
-        '2017-01-02': 2,
-        '2017-01-03': 1,
-        '2017-02-01': 5,
-        '2017-02-03': 1
-    };
+  const startDate = new Date('2017-01-01');
+  const endDate = new Date('2017-03-01');
+  const commitsLengthMap = {
+    '2017-01-01': 1,
+    '2017-01-02': 2,
+    '2017-01-03': 1,
+    '2017-02-01': 5,
+    '2017-02-03': 1
+  };
 
-    calendar(startDate, endDate, commitsLengthMap);
+  calendar(startDate, endDate, commitsLengthMap);
 
-    expect(consoleBuffer[0]).toBe('-------------------------------------------------');
-    expect(consoleBuffer[1]).toBe('                     1.2017');
-    expect(consoleBuffer[2]).toBe('    Mon    Tue    Wed    Thu    Fri    Sat    Sun');
-    expect(consoleBuffer[3]).toBe('-------------------------------------------------');    
-    expect(consoleBuffer[4]).toBe(chalk.green(leftPad('(1)1', 49)));
-    expect(consoleBuffer[5]).toBe(
+  expect(consoleBuffer[0]).toBe('-------------------------------------------------');
+  expect(consoleBuffer[1]).toBe('                     1.2017');
+  expect(consoleBuffer[2]).toBe('    Mon    Tue    Wed    Thu    Fri    Sat    Sun');
+  expect(consoleBuffer[3]).toBe('-------------------------------------------------');    
+  expect(consoleBuffer[4]).toBe(chalk.green(leftPad('(1)1', 49)));
+  expect(consoleBuffer[5]).toBe(
         [
-            prepareValueToTest(2, 2, 'green'),
-            prepareValueToTest(1, 3, 'green'),
-            prepareValueToTest(0, 4, 'red'), prepareValueToTest(0, 5, 'red'),
-            prepareValueToTest(0, 6, 'red'), prepareValueToTest(0, 7, 'red'),
-            prepareValueToTest(0, 8, 'red')
+          prepareValueToTest(2, 2, 'green'),
+          prepareValueToTest(1, 3, 'green'),
+          prepareValueToTest(0, 4, 'red'), prepareValueToTest(0, 5, 'red'),
+          prepareValueToTest(0, 6, 'red'), prepareValueToTest(0, 7, 'red'),
+          prepareValueToTest(0, 8, 'red')
         ].join('')
     );
-    expect(consoleBuffer[6]).toBe(prepareNextValues(9, 15, 'red'));
-    expect(consoleBuffer[7]).toBe(prepareNextValues(16, 22, 'red'));
-    expect(consoleBuffer[8]).toBe(prepareNextValues(23, 29, 'red'));
-    expect(consoleBuffer[9]).toBe(prepareNextValues(30, 31, 'red'));
+  expect(consoleBuffer[6]).toBe(prepareNextValues(9, 15, 'red'));
+  expect(consoleBuffer[7]).toBe(prepareNextValues(16, 22, 'red'));
+  expect(consoleBuffer[8]).toBe(prepareNextValues(23, 29, 'red'));
+  expect(consoleBuffer[9]).toBe(prepareNextValues(30, 31, 'red'));
 
-    expect(consoleBuffer[10]).toBe('-------------------------------------------------');
-    expect(consoleBuffer[11]).toBe('                     2.2017');
-    expect(consoleBuffer[12]).toBe('    Mon    Tue    Wed    Thu    Fri    Sat    Sun');
-    expect(consoleBuffer[13]).toBe('-------------------------------------------------');    
-    expect(consoleBuffer[14]).toBe(
+  expect(consoleBuffer[10]).toBe('-------------------------------------------------');
+  expect(consoleBuffer[11]).toBe('                     2.2017');
+  expect(consoleBuffer[12]).toBe('    Mon    Tue    Wed    Thu    Fri    Sat    Sun');
+  expect(consoleBuffer[13]).toBe('-------------------------------------------------');    
+  expect(consoleBuffer[14]).toBe(
         [
-            chalk.green(leftPad('(5)1', 3 * DAY_SPACES)),
-            prepareValueToTest(0, 2, 'red'),
-            prepareValueToTest(1, 3, 'green'),
-            prepareNextValues(4, 5, 'red')
+          chalk.green(leftPad('(5)1', 3 * DAY_SPACES)),
+          prepareValueToTest(0, 2, 'red'),
+          prepareValueToTest(1, 3, 'green'),
+          prepareNextValues(4, 5, 'red')
         ].join('')
     );
-    expect(consoleBuffer[15]).toBe(prepareNextValues(6, 12, 'red'));
-    expect(consoleBuffer[16]).toBe(prepareNextValues(13, 19, 'red'));
-    expect(consoleBuffer[17]).toBe(prepareNextValues(20, 26, 'red'));
-    expect(consoleBuffer[18]).toBe(prepareNextValues(27, 28, 'red'));
+  expect(consoleBuffer[15]).toBe(prepareNextValues(6, 12, 'red'));
+  expect(consoleBuffer[16]).toBe(prepareNextValues(13, 19, 'red'));
+  expect(consoleBuffer[17]).toBe(prepareNextValues(20, 26, 'red'));
+  expect(consoleBuffer[18]).toBe(prepareNextValues(27, 28, 'red'));
 });
 
 test('not full month', () => {
-    const startDate = new Date('2017-01-05');
-    const endDate = new Date('2017-01-20');
-    const commitsLengthMap = {
-        '2017-01-04': 1,
-        '2017-01-05': 2,
-        '2017-01-06': 1,
-        '2017-01-19': 5,
-        '2017-01-22': 1
-    };
+  const startDate = new Date('2017-01-05');
+  const endDate = new Date('2017-01-20');
+  const commitsLengthMap = {
+    '2017-01-04': 1,
+    '2017-01-05': 2,
+    '2017-01-06': 1,
+    '2017-01-19': 5,
+    '2017-01-22': 1
+  };
 
-    calendar(startDate, endDate, commitsLengthMap);
+  calendar(startDate, endDate, commitsLengthMap);
 
-    expect(consoleBuffer[0]).toBe('-------------------------------------------------');
-    expect(consoleBuffer[1]).toBe('                     1.2017');
-    expect(consoleBuffer[2]).toBe('    Mon    Tue    Wed    Thu    Fri    Sat    Sun');
-    expect(consoleBuffer[3]).toBe('-------------------------------------------------');    
-    expect(consoleBuffer[4]).toBe(chalk.gray(leftPad('(0)1', 49)));
-    expect(consoleBuffer[5]).toBe(
+  expect(consoleBuffer[0]).toBe('-------------------------------------------------');
+  expect(consoleBuffer[1]).toBe('                     1.2017');
+  expect(consoleBuffer[2]).toBe('    Mon    Tue    Wed    Thu    Fri    Sat    Sun');
+  expect(consoleBuffer[3]).toBe('-------------------------------------------------');    
+  expect(consoleBuffer[4]).toBe(chalk.gray(leftPad('(0)1', 49)));
+  expect(consoleBuffer[5]).toBe(
         [
-            prepareValueToTest(0, 2, 'gray'),
-            prepareValueToTest(0, 3, 'gray'),
-            prepareValueToTest(1, 4, 'gray'), 
-            prepareValueToTest(2, 5, 'green'),
-            prepareValueToTest(1, 6, 'green'), 
-            prepareValueToTest(0, 7, 'red'),
-            prepareValueToTest(0, 8, 'red')
+          prepareValueToTest(0, 2, 'gray'),
+          prepareValueToTest(0, 3, 'gray'),
+          prepareValueToTest(1, 4, 'gray'), 
+          prepareValueToTest(2, 5, 'green'),
+          prepareValueToTest(1, 6, 'green'), 
+          prepareValueToTest(0, 7, 'red'),
+          prepareValueToTest(0, 8, 'red')
         ].join('')
     );
-    expect(consoleBuffer[6]).toBe(prepareNextValues(9, 15, 'red'));
-    expect(consoleBuffer[7]).toBe(
+  expect(consoleBuffer[6]).toBe(prepareNextValues(9, 15, 'red'));
+  expect(consoleBuffer[7]).toBe(
         [
-            prepareNextValues(16, 18, 'red'),
-            prepareValueToTest(5, 19, 'green'),
-            prepareNextValues(20, 21, 'gray'),
-            prepareValueToTest(1, 22, 'gray'),
+          prepareNextValues(16, 18, 'red'),
+          prepareValueToTest(5, 19, 'green'),
+          prepareNextValues(20, 21, 'gray'),
+          prepareValueToTest(1, 22, 'gray'),
         ].join('')
     );
-    expect(consoleBuffer[8]).toBe(prepareNextValues(23, 29, 'gray'));
-    expect(consoleBuffer[9]).toBe(prepareNextValues(30, 31, 'gray'));    
+  expect(consoleBuffer[8]).toBe(prepareNextValues(23, 29, 'gray'));
+  expect(consoleBuffer[9]).toBe(prepareNextValues(30, 31, 'gray'));    
 });
