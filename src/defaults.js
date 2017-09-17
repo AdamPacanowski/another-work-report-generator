@@ -9,6 +9,9 @@ function isPreviousMonthReport() {
   return date < 5;
 }
 
+/**
+ * Set default values
+ */
 module.exports = {
   path: process.cwd(),
   outputPath: process.cwd(),

@@ -2,6 +2,16 @@ const path = require('path');
 const Excel = require('exceljs');
 const opn = require('opn');
 
+/**
+ * Writing commits to excel file
+ * @param {ParsedCommit[]} calculatedCommits Parsed commits with time property
+ * @param {Object} settings
+ * @param {String} settings.year
+ * @param {String} settings.month
+ * @param {String} settings.outputPath
+ * @param {String} settings.reportName
+ * @param {boolean} settings.disableAutoOpenFile
+ */
 module.exports = function(calculatedCommits, settings) {
   const workbook = new Excel.Workbook();
 
@@ -44,12 +54,21 @@ module.exports = function(calculatedCommits, settings) {
   sheet.getCell('L1').value = {formula: 'SUM(D:D)', result: formulaSum};
 
   const fullPathToReportFile = path.join(settings.outputPath, settings.reportName);
+
+  let createFilePromiseResolve;
+  const createFilePromise = new Promise((resolve) => {
+    createFilePromiseResolve = resolve;
+  });
+
   workbook.xlsx.writeFile(fullPathToReportFile)
     .then(() => {
+      createFilePromiseResolve();
       if (!settings.disableAutoOpenFile) {
         opn(fullPathToReportFile, {
           wait: false
         });
       }
     });
+
+  return createFilePromise;
 };
