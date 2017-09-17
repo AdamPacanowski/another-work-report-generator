@@ -1,7 +1,7 @@
 const settingsUtils = require('./utils/settingsUtils');
 
 test('silent test', () => {
-  const orginalArgv = JSON.stringify(process.argv);
+  settingsUtils.clearProcessArgv(); 
 
   const buffer = settingsUtils.prepareBuffer();
 
@@ -14,6 +14,4 @@ test('silent test', () => {
 
   expect(settingsUtils.findPatternInArray(buffer, /graduation.*0.5/))
     .toBe(-1);
-
-  process.argv = JSON.parse(orginalArgv);
 });

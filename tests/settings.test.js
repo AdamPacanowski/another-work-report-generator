@@ -3,7 +3,7 @@ const settingsUtils = require('./utils/settingsUtils');
 // Settings tests are splitted by files due to node cache bug.
 
 test('simple settings test', () => {
-  const orginalArgv = JSON.stringify(process.argv);
+  settingsUtils.clearProcessArgv();
   const buffer = settingsUtils.prepareBuffer();
 
   process.argv.push('--month=1');
@@ -18,6 +18,4 @@ test('simple settings test', () => {
     .not.toBe(-1);
   expect(settingsUtils.findPatternInArray(buffer, /graduation.*0.5/))
     .not.toBe(-1);
-
-  process.argv = JSON.parse(orginalArgv);
 });

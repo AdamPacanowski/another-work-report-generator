@@ -15,5 +15,14 @@ module.exports = {
     };
 
     return consoleBuffer;
+  },
+
+  clearProcessArgv() {
+    const processArgv = JSON.parse(JSON.stringify(process.argv));
+    const testsIndex = processArgv.indexOf('tests');
+
+    processArgv.splice(testsIndex + 1);
+
+    process.argv = processArgv;
   }
 };

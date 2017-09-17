@@ -2,9 +2,10 @@ const moment = require('moment');
 
 const defaults = require('../src/defaults');
 
-test('lastHours property test', () => {
-  const orginalArgv = JSON.stringify(process.argv);
+const settingsUtils = require('./utils/settingsUtils');
 
+test('lastHours property test', () => {
+  settingsUtils.clearProcessArgv();
   process.argv.push('--last-hours=24');
   process.argv.push('--silent');
 
@@ -16,6 +17,4 @@ test('lastHours property test', () => {
   expect(momentNow.diff(settings.endTime, 'minutes')).toBe(0);   
     
   expect(settings.graduation).toBe(defaults.graduation);
-
-  process.argv = JSON.parse(orginalArgv);
 });

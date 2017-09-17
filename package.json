@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "eslint": "3.18.0",
-    "fs-extra": "^4.0.2",
+    "fs-extra": "4.0.2",
     "jest": "21.0.1",
     "rimraf": "2.6.1"
   }
