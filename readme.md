@@ -2,6 +2,8 @@
 
 Do you want to generate report from your repositories? Now you can do it in simple way.
 
+![calendar-screen](images/example.GIF)
+
 ## Features
 
 * Generate report from all repositories in ```path``` folder.
@@ -104,10 +106,13 @@ List of options:
 * Improve calendar (days are greyed out when not in date range).
 * Add ```last-hours```, ```output``` and ```locale``` options.
 
-### 3.2.1
-* Fixed problem with first day color in calendar.
-* Fixed problem with wrong indentation for first week.
-* Fixed problem with wrong days number in month.
+### 3.3.0
+* Added some tests to code ...
+  * Fixed problem with first day color in calendar.
+  * Fixed problem with wrong indentation for first week.
+  * Fixed problem with wrong days number in month.
+* Changed properties display method. (look at gif)
+
 
 ## Development
 
@@ -120,4 +125,3 @@ Development requires node version ```>=8.4.0``` (required for debugging tests)
 * Generated file should be more configurable (e.g columns order)
 * Passing arguments by config file
 * Add other sources (not only git repos) e.g reports from bug trackers
-* Add tests
