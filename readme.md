@@ -2,7 +2,7 @@
 
 Do you want to generate report from your repositories? Now you can do it in simple way.
 
-![calendar-screen](images/example.GIF)
+![calendar-screen](images/example.gif)
 
 ## Features
 
