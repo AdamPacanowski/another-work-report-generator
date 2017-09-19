@@ -113,6 +113,8 @@ List of options:
   * Fixed problem with wrong days number in month.
 * Changed properties display method. (look at gif)
 
+### 3.3.1
+* Fix app launching on linux.
 
 ## Development
 
