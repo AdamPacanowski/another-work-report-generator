@@ -51,4 +51,6 @@ module.exports = {
   lastHours: null,
   output: 'excel',
   locale: 'en',
+  calculationMethod: 'standard',
+  equalRoundPrecision: 2,
 };

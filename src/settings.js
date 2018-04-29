@@ -131,6 +131,26 @@ const argv = yargs
     default: defaults.locale,
     type: 'string'
   })
+  .option('calculation-method', {
+    describe: 'Calculation method {standard, equal}',
+    default: defaults.calculationMethod,
+    coerce: opt => {
+      if (['standard', 'equal'].indexOf(opt) === -1) {
+        throw new error('Parse error - Wrong calculation method parameter.');
+      }
+      return opt;
+    }
+  })
+  .option('equal-round-precision', {
+    describe: 'Equal calculation method precesion',
+    default: defaults.equalRoundPrecision,
+    coerce: opt => {
+      if (opt !== null) {
+        return parseNumber(opt, 'Equal round precision');
+      }
+      return null;
+    }
+  })
   .wrap(yargs.terminalWidth() || 100)
   .detectLocale(false)
   .help()
@@ -160,7 +180,8 @@ settings.disableInteractive = argv.disableInteractive;
 settings.lastHours = argv.lastHours;
 settings.output = argv.output;
 settings.locale = argv.locale;
-
+settings.calculationMethod = argv.calculationMethod;
+settings.equalRoundPrecision = argv.equalRoundPrecision;
 
 // Computing settings
 settings.month = parseInt(settings.month, 10);

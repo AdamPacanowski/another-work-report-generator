@@ -55,6 +55,8 @@ List of options:
 * ```last-hours``` - Take commits from last [x] hours. This property override month and year properties. (default: null)
 * ```output``` - Application output {excel, console} (default: excel)
 * ```locale``` - Date locale (now only for console output) (default: en)
+* ```calculation-method``` - Calculation method {standard, equal} (default: standard)
+* ```equal-round-precision``` - Decimal number precision (applying only for equal calculation method) (default: 2)
 
 ## Changelog
 
@@ -115,6 +117,11 @@ List of options:
 
 ### 3.3.1
 * Fix app launching on linux.
+
+### 3.4.0
+* Added new calculation method - equal
+  * Added properties ```calculation-method``` and ```equal-round-precision```
+  * Calculation method "equal" means that sum of all commits time in day is equal maxHoursPerDay.
 
 ## Development
 

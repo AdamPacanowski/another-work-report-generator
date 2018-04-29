@@ -1,4 +1,5 @@
 const path = require('path');
+const _ = require('lodash');
 const chalk = require('chalk');
 
 /**
@@ -54,18 +55,11 @@ const commitsParser = {
     return commits;
   },
 
-  /**
-   * Standard method to calculate commits times.
-   * @param {RepositoriesCommits[]} rawCommits commits to parse
-   * @param {Object} settings
-   * @param {Date} settings.startTime
-   * @param {Date} settings.endTime
-   * @param {number} settings.maxHoursPerDay
-   * @param {number} settings.graduation
-   * @param {number} settings.minCommitTime
-   * @returns {CalculatedCommit}
-   */
-  standardCalculation: (rawCommits, settings) => {
+  _calculation: ({
+    rawCommits,
+    settings,
+    timeCalculationMethod
+  }) => {
     const commits = commitsParser._parse(rawCommits, settings);
     const commitsLengthMap = {};
 
@@ -74,7 +68,9 @@ const commitsParser = {
       const linesInDay = dayCommits.reduce((prev, act) => prev + act.lines, 0);
       const ratio = filteredCommit.lines / linesInDay;
 
-      filteredCommit.time = parseInt((ratio * settings.maxHoursPerDay) / settings.graduation, 10) * settings.graduation || settings.minCommitTime;
+      filteredCommit.time = timeCalculationMethod({
+        ratio,
+      });
 
       if (!commitsLengthMap[filteredCommit.shortDate]) {
         commitsLengthMap[filteredCommit.shortDate] = dayCommits.length; 
@@ -93,6 +89,88 @@ const commitsParser = {
       commits,
       commitsLengthMap,
     };
+  },
+
+  /**
+   * Standard method to calculate commits times.
+   * @param {RepositoriesCommits[]} rawCommits commits to parse
+   * @param {Object} settings
+   * @param {Date} settings.startTime
+   * @param {Date} settings.endTime
+   * @param {number} settings.maxHoursPerDay
+   * @param {number} settings.graduation
+   * @param {number} settings.minCommitTime
+   * @returns {CalculatedCommit}
+   */
+  standardCalculation: (rawCommits, settings) => {
+    const timeCalculationMethod = ({
+      ratio
+    }) => {
+      return parseInt((ratio * settings.maxHoursPerDay) / settings.graduation, 10) * settings.graduation || settings.minCommitTime;
+    };
+
+    return commitsParser._calculation({
+      rawCommits,
+      settings,
+      timeCalculationMethod
+    });
+  },
+
+  /**
+   * Equal method to calculate commits times.
+   * "Equal" means that sum of all commits time in day is equal maxHoursPerDay.
+   * @param {RepositoriesCommits[]} rawCommits commits to parse
+   * @param {Object} settings
+   * @param {Date} settings.startTime
+   * @param {Date} settings.endTime
+   * @param {number} settings.maxHoursPerDay
+   * @param {number} settings.equalRoundPrecision
+   * @param {number} settings.minCommitTime
+   * @returns {CalculatedCommit}
+   */
+  equalCalculation: (rawCommits, settings) => {
+    const timeCalculationMethod = ({
+      ratio,
+    }) => {
+      return ratio * settings.maxHoursPerDay;
+    };
+
+    const calculation = commitsParser._calculation({
+      rawCommits,
+      settings,
+      timeCalculationMethod
+    });
+
+    const shortDateGrouped = _.groupBy(calculation.commits, 'shortDate');
+    Object.keys(shortDateGrouped).forEach(shortDateGroupedKey => {
+      const commits = shortDateGrouped[shortDateGroupedKey];
+      
+      let minCommitTimeCommits = 0;
+
+      commits.forEach(commit => {
+        if (commit.time < settings.minCommitTime) {
+          commit.time = settings.minCommitTime;
+          commit.isMinCommitTime = true;
+          minCommitTimeCommits++;
+        }
+      });
+
+      const newMaxHoursPerDay = settings.maxHoursPerDay - (minCommitTimeCommits * settings.minCommitTime);
+
+      if (minCommitTimeCommits) {
+        commits.forEach(commit => {
+          if (!commit.isMinCommitTime) {
+            commit.time = (commit.time / settings.maxHoursPerDay) * newMaxHoursPerDay;
+          }
+        });
+      }
+      
+      commits.forEach(commit => {
+        commit.time = _.round(_.round(commit.time, settings.equalRoundPrecision + 1), settings.equalRoundPrecision);
+      });
+    });
+
+    return calculation;
   }
 };
 

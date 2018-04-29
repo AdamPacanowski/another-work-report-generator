@@ -13,7 +13,15 @@ const excelCreator = require('./excelCreator');
 const consoleCreator = require('./consoleCreator');
 
 const rawCommits = commitsGetter(settings);
-const calculatedCommits = commitsParser.standardCalculation(rawCommits, settings);
+
+let calculatedCommits;
+
+if (settings.calculationMethod === 'standard') {
+  calculatedCommits = commitsParser.standardCalculation(rawCommits, settings);
+}
+if (settings.calculationMethod === 'equal') {
+  calculatedCommits = commitsParser.equalCalculation(rawCommits, settings);
+}
 
 if (!settings.disableCalendar) {
   calendar(settings.startTime, settings.endTime, calculatedCommits.commitsLengthMap);
