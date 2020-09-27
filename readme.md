@@ -123,9 +123,12 @@ List of options:
   * Added properties ```calculation-method``` and ```equal-round-precision```
   * Calculation method "equal" means that sum of all commits time in day is equal maxHoursPerDay.
 
+### 3.4.1
+* Fix for node12+ (drop support for older version)
+
 ## Development
 
-Development requires node version ```>=8.4.0``` (required for debugging tests)
+Development requires node version ```>=12.0.0``` (required for debugging tests)
 
 ## TODO List
 
