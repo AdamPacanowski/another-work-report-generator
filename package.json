@@ -4,7 +4,7 @@
   "description": "Another (probably best) work report generator.",
   "main": "src/index.js",
   "scripts": {
-    "preinstall": "npx npm-force-resolutions",
+    "postinstall": "npx npm-force-resolutions",
     "start": "node ./src/index",
     "lint": "node node_modules/eslint/bin/eslint src",
     "test": "node node_modules/jest/bin/jest tests",
