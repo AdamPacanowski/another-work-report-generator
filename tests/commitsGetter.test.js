@@ -43,7 +43,7 @@ test('two repositories test', () => {
     doNotRemoveTestFolder: true
   });
 
-  const tempDir = os.tmpDir();
+  const tempDir = os.tmpdir();
 
   const commits = commitsGetter({
     startTime: new Date('2017-01-01 00:00:00'),
